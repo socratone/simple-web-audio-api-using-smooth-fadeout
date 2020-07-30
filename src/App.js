@@ -46,7 +46,7 @@ function App() {
     // 위와 더불어 setValueAtTime 설정이 빠지면 click 노이즈가 발생한다.
     gainNode.gain.setValueAtTime(gainNode.gain.value, audioContext.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(
-      0.001,
+      0.0001,
       audioContext.currentTime + 1
     );
   };
