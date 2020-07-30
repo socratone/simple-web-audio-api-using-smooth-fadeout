@@ -35,13 +35,6 @@ function App() {
     audioFile.current.play();
   };
 
-  const clickPauseButton = () => {
-    if (audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-    audioFile.current.pause();
-  };
-
   const clickFadeButton = () => {
     // 위와 더불어 setValueAtTime 설정이 빠지면 click 노이즈가 발생한다.
     gainNode.gain.setValueAtTime(gainNode.gain.value, audioContext.currentTime);
@@ -49,14 +42,18 @@ function App() {
       0.0001,
       audioContext.currentTime + 1
     );
+    setTimeout(() => {
+      audioFile.current.pause();
+      audioFile.current.currentTime = 0;
+    }, 1000);
   };
 
   return (
     <div className="App">
       <audio src="e4.mp3" ref={audioFile}></audio>
       <button onClick={clickPlayButton}>play</button>
-      <button onClick={clickPauseButton}>pause</button>
       <button onClick={clickFadeButton}>fade</button>
+      <p>페이드아웃이 다 끝나기 전에 다시 play 버튼을 누르면 오작동</p>
     </div>
   );
 }
