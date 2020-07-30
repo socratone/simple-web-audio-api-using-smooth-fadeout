@@ -30,6 +30,7 @@ function App() {
     if (audioContext.state === 'suspended') {
       audioContext.resume();
     }
+    // 아래와 더불어 setValueAtTime 설정이 빠지면 click 노이즈가 발생한다.
     gainNode.gain.setValueAtTime(1, audioContext.currentTime);
     audioFile.current.play();
   };
@@ -42,6 +43,7 @@ function App() {
   };
 
   const clickFadeButton = () => {
+    // 위와 더불어 setValueAtTime 설정이 빠지면 click 노이즈가 발생한다.
     gainNode.gain.setValueAtTime(gainNode.gain.value, audioContext.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(
       0.001,
