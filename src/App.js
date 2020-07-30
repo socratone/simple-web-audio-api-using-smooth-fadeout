@@ -11,12 +11,15 @@ function App() {
   useEffect(() => {
     audioContext = new AudioContext();
 
-    // pass it into the audio context
+    // Create a MediaElementAudioSourceNode
+    // Feed the HTMLMediaElement into it
     const source = audioContext.createMediaElementSource(audioFile.current);
 
-    // 게인 조절
+    // Create a gain node and set its gain value to 0.5
     gainNode = audioContext.createGain();
 
+    // connect the AudioBufferSourceNode to the gainNode
+    // and the gainNode to the destination
     gainNode.gain.setValueAtTime(0, audioContext.currentTime);
     source.connect(gainNode);
     gainNode.connect(audioContext.destination);
